@@ -1,0 +1,10 @@
+__pycache__/
+.env
+.venv/
+.local/
+*.log
+*.mp3
+*.pdf
+*.zip
+dist/
+build/

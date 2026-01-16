@@ -1,0 +1,48 @@
+name: autopod
+
+on:
+  schedule:
+    - cron: "0 23 * * *"
+  workflow_dispatch:
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+      - name: Run AutoPod
+        env:
+          IMAP_HOST: imap.163.com
+          IMAP_PORT: "993"
+          IMAP_FOLDER: INBOX
+          IMAP_SUBJECT_KEYWORD: Stork
+          IMAP_SINCE_DAYS: "7"
+          OPENAI_MODEL: gpt-4o-mini
+          OPENAI_TTS_MODEL: tts-1
+          OPENAI_TTS_VOICE: shimmer
+          PODCAST_TITLE: Stork Daily Digest
+          PODCAST_DESCRIPTION: Daily digest of Stork papers
+          PODCAST_LANGUAGE: zh-cn
+          PODCAST_LINK: https://example.com
+          PODCAST_PREFIX: autopod
+          MAX_EPISODE_SECONDS: "1800"
+          TIMEZONE: Asia/Shanghai
+          IMAP_USER: ${{ secrets.IMAP_USER }}
+          IMAP_PASSWORD: ${{ secrets.IMAP_PASSWORD }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          R2_ENDPOINT: ${{ secrets.R2_ENDPOINT }}
+          R2_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
+          R2_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
+          R2_BUCKET: ${{ secrets.R2_BUCKET }}
+          R2_PUBLIC_BASE_URL: ${{ secrets.R2_PUBLIC_BASE_URL }}
+          RSS_PRIVATE_TOKEN: ${{ secrets.RSS_PRIVATE_TOKEN }}
+        run: python -m autopod.main

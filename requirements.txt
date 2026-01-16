@@ -1,0 +1,4 @@
+openai>=1.30.0
+boto3>=1.34.0
+pdfplumber>=0.11.0
+mutagen>=1.47.0
