@@ -27,4 +27,4 @@ jobs:
           R2_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
           R2_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
           RSS_PRIVATE_TOKEN: ${{ secrets.RSS_PRIVATE_TOKEN }}
-        run: python main.py
+        run: python AutoPod/autopod/main.py
